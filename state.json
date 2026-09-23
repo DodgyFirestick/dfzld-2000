@@ -9,74 +9,74 @@
       "warned": false
     },
     "https://store.nintendo.com/en-gb/nintendo-switch-2-pro-controller-the-legend-of-zelda-40th-anniversary-edition-display-stand-000000000010019437": {
-      "fails": 2,
+      "fails": 3,
       "last_good": null,
       "price": null,
       "status": "unknown",
-      "warned": false
+      "warned": true
     },
     "https://store.nintendo.com/en-gb/nintendo-switch-2-the-legend-of-zelda-40th-anniversary-edition-P00211": {
-      "fails": 2,
+      "fails": 3,
       "last_good": null,
       "price": null,
       "status": "unknown",
-      "warned": false
+      "warned": true
     },
     "https://www.amazon.co.uk/dp/B0HJ8344SW": {
-      "fails": 2,
+      "fails": 3,
       "last_good": null,
       "price": null,
       "status": "unknown",
-      "warned": false
+      "warned": true
     },
     "https://www.argos.co.uk/product/9625053": {
-      "fails": 2,
+      "fails": 3,
       "last_good": null,
       "price": null,
       "status": "blocked",
-      "warned": false
+      "warned": true
     },
     "https://www.argos.co.uk/product/9754625": {
-      "fails": 2,
+      "fails": 3,
       "last_good": null,
       "price": null,
       "status": "blocked",
-      "warned": false
+      "warned": true
     },
     "https://www.currys.co.uk/products/nintendo-switch-2-pro-controller-the-legend-of-zelda-40th-anniversary-edition-10311288.html": {
-      "fails": 2,
+      "fails": 3,
       "last_good": null,
       "price": null,
       "status": "blocked",
-      "warned": false
+      "warned": true
     },
     "https://www.currys.co.uk/products/nintendo-switch-2-the-legend-of-zelda-40th-anniversary-edition-console-10311285.html": {
-      "fails": 2,
+      "fails": 3,
       "last_good": null,
       "price": null,
       "status": "blocked",
-      "warned": false
+      "warned": true
     },
     "https://www.scan.co.uk/products/nintendo-switch-2-pro-controller-legend-of-zelda-40th-anniversary-green-mappable-buttons-usb-c": {
-      "fails": 2,
+      "fails": 3,
       "last_good": null,
       "price": null,
       "status": "blocked",
-      "warned": false
+      "warned": true
     },
     "https://www.smythstoys.com/uk/en-gb/gaming-and-tech/nintendo-switch-2/nintendo-switch-2-accessories/nintendo-switch-2-pro-controller-the-legend-of-zelda-40th-anniversary-edition/p/265620": {
-      "fails": 2,
+      "fails": 3,
       "last_good": null,
       "price": null,
       "status": "blocked",
-      "warned": false
+      "warned": true
     },
     "https://www.smythstoys.com/uk/en-gb/gaming-and-tech/nintendo-switch-2/nintendo-switch-2-consoles/nintendo-switch-2-the-legend-of-zelda-40th-anniversary-edition-console/p/265573": {
-      "fails": 2,
+      "fails": 3,
       "last_good": null,
       "price": null,
       "status": "blocked",
-      "warned": false
+      "warned": true
     }
   }
 }
