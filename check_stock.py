@@ -26,39 +26,28 @@ from curl_cffi import requests
 #  an urgent alert.
 # =====================================================================
 PRODUCTS = [
-    # --- Console -----------------------------------------------------
-    {"item": "Console", "retailer": "Nintendo UK", "max_price": 450,
-     "url": "https://store.nintendo.com/en-gb/nintendo-switch-2-the-legend-of-zelda-40th-anniversary-edition-P00211"},
-    {"item": "Console", "retailer": "Argos", "max_price": 450,
-     "url": "https://www.argos.co.uk/product/9625053"},
-    {"item": "Console", "retailer": "Smyths", "max_price": 450,
-     "url": "https://www.smythstoys.com/uk/en-gb/gaming-and-tech/nintendo-switch-2/nintendo-switch-2-consoles/nintendo-switch-2-the-legend-of-zelda-40th-anniversary-edition-console/p/265573"},
-    {"item": "Console", "retailer": "Currys", "max_price": 450,
-     "url": "https://www.currys.co.uk/products/nintendo-switch-2-the-legend-of-zelda-40th-anniversary-edition-console-10311285.html"},
+    # --- Working from GitHub ------------------------------------------
     {"item": "Console", "retailer": "EE", "max_price": 450,
      "url": "https://ee.co.uk/products/nintendo-switch-2-zelda-ocarina-of-time-special-edition"},
-    # Very is switched off for now: its page says "Pre-order now" even when
-    # stock has gone (the real check only happens when you add to basket),
-    # so it would send false alerts. Remove the # marks once that's fixed.
-    # {"item": "Console", "retailer": "Very", "max_price": 450,
-    #  "url": "https://www.very.co.uk/nintendo-the-legend-of-zelda-40th-anniversary-edition-console-nintendo-switch-2/1601230011.prd"},
-    # {"item": "Console + Ocarina of Time", "retailer": "Very", "max_price": 510,
-    #  "url": "https://www.very.co.uk/nintendo-the-legend-of-zelda-40th-anniversary-edition-console-the-legend-ofnbspzeldanbspocarina-of-time-nintendo-switch-2/1601230021.prd"},
-
-    # --- Pro Controller ----------------------------------------------
-    # Nintendo's version comes bundled with a display stand, so it costs more.
-    {"item": "Pro Controller + stand", "retailer": "Nintendo UK", "max_price": 100,
-     "url": "https://store.nintendo.com/en-gb/nintendo-switch-2-pro-controller-the-legend-of-zelda-40th-anniversary-edition-display-stand-000000000010019437"},
-    {"item": "Pro Controller", "retailer": "Argos", "max_price": 85,
-     "url": "https://www.argos.co.uk/product/9754625"},
-    {"item": "Pro Controller", "retailer": "Smyths", "max_price": 85,
-     "url": "https://www.smythstoys.com/uk/en-gb/gaming-and-tech/nintendo-switch-2/nintendo-switch-2-accessories/nintendo-switch-2-pro-controller-the-legend-of-zelda-40th-anniversary-edition/p/265620"},
-    {"item": "Pro Controller", "retailer": "Currys", "max_price": 85,
-     "url": "https://www.currys.co.uk/products/nintendo-switch-2-pro-controller-the-legend-of-zelda-40th-anniversary-edition-10311288.html"},
     {"item": "Pro Controller", "retailer": "Amazon", "max_price": 85,
      "url": "https://www.amazon.co.uk/dp/B0HJ8344SW"},
-    {"item": "Pro Controller", "retailer": "Scan", "max_price": 85,
-     "url": "https://www.scan.co.uk/products/nintendo-switch-2-pro-controller-legend-of-zelda-40th-anniversary-green-mappable-buttons-usb-c"},
+
+    # --- Switched off: these sites block scripts, so they're watched by
+    #     Distill on the PC instead (it uses a real browser).
+    # Argos console:        https://www.argos.co.uk/product/9625053
+    # Argos controller:     https://www.argos.co.uk/product/9754625
+    # Currys console:       https://www.currys.co.uk/products/nintendo-switch-2-the-legend-of-zelda-40th-anniversary-edition-console-10311285.html
+    # Currys controller:    https://www.currys.co.uk/products/nintendo-switch-2-pro-controller-the-legend-of-zelda-40th-anniversary-edition-10311288.html
+    # Smyths console:       https://www.smythstoys.com/uk/en-gb/gaming-and-tech/nintendo-switch-2/nintendo-switch-2-consoles/nintendo-switch-2-the-legend-of-zelda-40th-anniversary-edition-console/p/265573
+    # Smyths controller:    https://www.smythstoys.com/uk/en-gb/gaming-and-tech/nintendo-switch-2/nintendo-switch-2-accessories/nintendo-switch-2-pro-controller-the-legend-of-zelda-40th-anniversary-edition/p/265620
+    # Scan controller:      https://www.scan.co.uk/products/nintendo-switch-2-pro-controller-legend-of-zelda-40th-anniversary-green-mappable-buttons-usb-c
+
+    # --- Parked until we find their background stock check -----------
+    # Nintendo UK console:  https://store.nintendo.com/en-gb/nintendo-switch-2-the-legend-of-zelda-40th-anniversary-edition-P00211
+    # Nintendo UK controller + stand:
+    #   https://store.nintendo.com/en-gb/nintendo-switch-2-pro-controller-the-legend-of-zelda-40th-anniversary-edition-display-stand-000000000010019437
+    # Very console:         https://www.very.co.uk/nintendo-the-legend-of-zelda-40th-anniversary-edition-console-nintendo-switch-2/1601230011.prd
+    # Very console + game:  https://www.very.co.uk/nintendo-the-legend-of-zelda-40th-anniversary-edition-console-the-legend-ofnbspzeldanbspocarina-of-time-nintendo-switch-2/1601230021.prd
 ]
 
 # Word that must appear in a product's structured-data name, so we read
