@@ -1,0 +1,48 @@
+name: Zelda stock check
+
+on:
+  schedule:
+    # Every 10 minutes, deliberately off the hour (GitHub's busiest moment,
+    # when scheduled runs are most likely to be delayed or skipped).
+    - cron: "3,13,23,33,43,53 * * * *"
+  workflow_dispatch: # adds a "Run workflow" button for manual test runs
+
+permissions:
+  contents: write # lets the job save state.json back to the repo
+
+concurrency:
+  group: stock-check
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependency
+        run: pip install --quiet curl_cffi
+
+      - name: Check stock
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          MANUAL_RUN: ${{ github.event_name == 'workflow_dispatch' }}
+        run: python check_stock.py
+
+      - name: Save state
+        run: |
+          git config user.name "stock-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add state.json
+          if git diff --staged --quiet; then
+            echo "No change in stock state."
+            exit 0
+          fi
+          git commit -m "Update stock state"
+          git pull --rebase --quiet
+          git push
