@@ -42,12 +42,19 @@ PRODUCTS = [
     # Smyths controller:    https://www.smythstoys.com/uk/en-gb/gaming-and-tech/nintendo-switch-2/nintendo-switch-2-accessories/nintendo-switch-2-pro-controller-the-legend-of-zelda-40th-anniversary-edition/p/265620
     # Scan controller:      https://www.scan.co.uk/products/nintendo-switch-2-pro-controller-legend-of-zelda-40th-anniversary-green-mappable-buttons-usb-c
 
-    # --- Parked until we find their background stock check -----------
-    # Nintendo UK console:  https://store.nintendo.com/en-gb/nintendo-switch-2-the-legend-of-zelda-40th-anniversary-edition-P00211
-    # Nintendo UK controller + stand:
-    #   https://store.nintendo.com/en-gb/nintendo-switch-2-pro-controller-the-legend-of-zelda-40th-anniversary-edition-display-stand-000000000010019437
+    # Very also needs a real browser (its stock check sits behind the same
+    # bot protection), so it's on the PC list too:
     # Very console:         https://www.very.co.uk/nintendo-the-legend-of-zelda-40th-anniversary-edition-console-nintendo-switch-2/1601230011.prd
     # Very console + game:  https://www.very.co.uk/nintendo-the-legend-of-zelda-40th-anniversary-edition-console-the-legend-ofnbspzeldanbspocarina-of-time-nintendo-switch-2/1601230021.prd
+
+    # --- Nintendo UK: read from the store's own stock feed -------------
+    # nintendo_id is the product code the store uses behind the scenes.
+    {"item": "Console", "retailer": "Nintendo UK", "max_price": 450,
+     "nintendo_id": "000000000010019451",
+     "url": "https://store.nintendo.com/en-gb/nintendo-switch-2-the-legend-of-zelda-40th-anniversary-edition-P00211"},
+    {"item": "Pro Controller + stand", "retailer": "Nintendo UK", "max_price": 100,
+     "nintendo_id": "000000000010019437",
+     "url": "https://store.nintendo.com/en-gb/nintendo-switch-2-pro-controller-the-legend-of-zelda-40th-anniversary-edition-display-stand-000000000010019437"},
 ]
 
 # Word that must appear in a product's structured-data name, so we read
@@ -214,8 +221,48 @@ def looks_blocked(status_code, html):
     return False
 
 
+def nintendo_price(data):
+    for value in (data.get("price"), data.get("pricePerUnit"), (data.get("master") or {}).get("price")):
+        if isinstance(value, dict):
+            value = value.get("value") or value.get("pricePerUnit")
+        price = to_price(value)
+        if price:
+            return price
+    return None
+
+
+def check_nintendo(product):
+    """Nintendo's product pages fill in stock after loading, from this feed."""
+    api = "https://store.nintendo.com/api/catalog/product?id=" + product["nintendo_id"]
+    try:
+        r = requests.get(api, impersonate="chrome", timeout=30,
+                         headers={"Accept": "application/json",
+                                  "Accept-Language": "en-GB,en;q=0.9",
+                                  "Referer": product["url"]})
+    except Exception as exc:
+        return "error", None, type(exc).__name__
+    if looks_blocked(r.status_code, r.text or ""):
+        return "blocked", None, f"HTTP {r.status_code}"
+    if r.status_code >= 400:
+        return "error", None, f"HTTP {r.status_code}"
+    try:
+        data = r.json().get("data") or {}
+    except ValueError:
+        return "unknown", None, "stock feed wasn't JSON"
+    inventory = data.get("inventory") or {}
+    if "orderable" in inventory or "preorderable" in inventory:
+        buyable = bool(inventory.get("orderable") or inventory.get("preorderable"))
+    elif "orderable" in (data.get("master") or {}):
+        buyable = bool(data["master"]["orderable"])
+    else:
+        return "unknown", None, "no stock field in feed"
+    return ("in" if buyable else "out"), nintendo_price(data), "Nintendo stock feed"
+
+
 def check(product):
     """Returns (status, price, how). status: in / out / blocked / unknown / error."""
+    if product.get("nintendo_id"):
+        return check_nintendo(product)
     try:
         r = requests.get(product["url"], impersonate="chrome", timeout=30,
                          headers={"Accept-Language": "en-GB,en;q=0.9"})
