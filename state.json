@@ -8,6 +8,20 @@
       "status": "out",
       "warned": false
     },
+    "https://store.nintendo.com/en-gb/nintendo-switch-2-pro-controller-the-legend-of-zelda-40th-anniversary-edition-display-stand-000000000010019437": {
+      "fails": 0,
+      "last_good": "out",
+      "price": 92.99,
+      "status": "out",
+      "warned": false
+    },
+    "https://store.nintendo.com/en-gb/nintendo-switch-2-the-legend-of-zelda-40th-anniversary-edition-P00211": {
+      "fails": 0,
+      "last_good": "out",
+      "price": 434.99,
+      "status": "out",
+      "warned": false
+    },
     "https://www.amazon.co.uk/dp/B0HJ8344SW": {
       "fails": 3,
       "last_good": null,
