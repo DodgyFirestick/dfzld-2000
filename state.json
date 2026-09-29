@@ -2,11 +2,11 @@
   "heartbeat_week": "2026-W40",
   "items": {
     "https://ee.co.uk/products/nintendo-switch-2-zelda-ocarina-of-time-special-edition": {
-      "fails": 2,
+      "fails": 3,
       "last_good": "out",
       "price": null,
       "status": "blocked",
-      "warned": false
+      "warned": true
     },
     "https://store.nintendo.com/en-gb/nintendo-switch-2-pro-controller-the-legend-of-zelda-40th-anniversary-edition-display-stand-000000000010019437": {
       "fails": 0,
