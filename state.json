@@ -23,7 +23,7 @@
       "warned": false
     },
     "https://www.amazon.co.uk/dp/B0HJ8344SW": {
-      "fails": 1,
+      "fails": 2,
       "last_good": "out",
       "price": null,
       "status": "unknown",
