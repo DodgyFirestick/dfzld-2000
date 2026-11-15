@@ -26,7 +26,7 @@
       "fails": 3,
       "last_good": "out",
       "price": null,
-      "status": "blocked",
+      "status": "unknown",
       "warned": true
     }
   }
